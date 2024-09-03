@@ -33,6 +33,15 @@ Upload para BigQuery
 
 Limpeza e Transformação de Dados usando SQL e BigQuery  
 
+- Remoção de Colunas Não Necessárias:
+  ```sql
+  ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
+  DROP COLUMN parameter;
+  
+  ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
+  DROP COLUMN id;
+  ```
+
 - Padronizacao dos nomes das colunas para letras minuculas.
 
 ```sql
@@ -162,15 +171,6 @@ RENAME COLUMN Unit TO unit;
       ELSE 'Unknown'
   END
   WHERE true;
-  ```
-
-- Remoção de Colunas Não Necessárias:
-  ```sql
-  ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
-  DROP COLUMN parameter;
-  
-  ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
-  DROP COLUMN id;
   ```
 
 ## Data Validation
