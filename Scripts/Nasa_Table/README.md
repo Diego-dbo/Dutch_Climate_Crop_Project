@@ -32,6 +32,68 @@ Upload para BigQuery
 - Realizei o upload do arquivo para o BigQuery com a opção de reconhecer o schema de forma automática.
 
 Limpeza e Transformação de Dados usando SQL e BigQuery  
+
+- Padronizacao dos nomes das colunas para letras minuculas.
+
+```sql
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN January TO january;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN February TO february;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN March TO march;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN April TO april;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN May TO may;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN June TO june;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN July TO july;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN August TO august;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN September TO september;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN October TO october;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN November TO november;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN December TO december;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Annual_temp TO annual_temp;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Year TO year;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Latitude TO latitude;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Longitude TO longitude;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Name TO name;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Variable TO variable;
+
+ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+RENAME COLUMN Unit TO unit;
+
+```
 - Conversão de Tipos de Dados:
   ```sql
   CREATE OR REPLACE TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table AS
