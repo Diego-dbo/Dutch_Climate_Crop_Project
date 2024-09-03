@@ -129,7 +129,6 @@ RENAME COLUMN Unit TO unit;
     - `rh2m` = Relative Humidity
     - `gwettop` = Surface Soil Wetness
     - `prectotcorr_sum` = Precipitation Corrected Sum
-  - Código:
   ```sql
   UPDATE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   SET
@@ -146,7 +145,6 @@ RENAME COLUMN Unit TO unit;
   ```
 
 - Criação e Atualização da Coluna `unit`:
-  - Criação da Coluna:
   ```sql
   ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   ADD COLUMN unit STRING;
