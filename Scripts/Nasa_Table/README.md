@@ -144,13 +144,13 @@ RENAME COLUMN Unit TO unit;
       parameter IN ('ts', 'qv2m', 'rh2m', 'gwettop', 'prectotcorr_sum') OR TRUE;
   ```
 
-- Criação e Atualização da Coluna `unit`:
+- Criação da Coluna `unit`:
   ```sql
   ALTER TABLE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   ADD COLUMN unit STRING;
   ```
 
-  - Atualização das Unidades das Variáveis na Coluna `unit`:
+  - Insercao das Unidades das Variáveis na Coluna `unit`:
   ```sql
   UPDATE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   SET unit = CASE
