@@ -172,9 +172,6 @@ RENAME COLUMN Unit TO unit;
   END
   WHERE true;
   ```
-
-## Data Validation
-
 - Verificação de Valores Faltantes em Todas as Colunas:
   ```sql
   SELECT
@@ -214,16 +211,6 @@ RENAME COLUMN Unit TO unit;
       unit
   ORDER BY
       variable;
-  ```
-
-- Verificação de Coordenadas Geográficas:
-  ```sql
-  SELECT DISTINCT latitude, longitude
-  FROM
-      my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
-  WHERE
-      latitude NOT BETWEEN 50 AND 54
-      OR longitude NOT BETWEEN 3 AND 8;
   ```
 
 - Verificação de Linhas Duplicadas:
@@ -269,4 +256,45 @@ RENAME COLUMN Unit TO unit;
       unit
   HAVING
       COUNT(*) > 1;
+  ```
+
+  -Verificação de Consistência de Unidades e Valores
+
+  ```sql
+  SELECT
+  variable,
+  MIN(january) AS min_january,
+  MAX(january) AS max_january,
+  MIN(february) AS min_february,
+  MAX(february) AS max_february,
+  MIN(march) AS min_march,
+  MAX(march) AS max_march,
+  MIN(april) AS min_april,
+  MAX(april) AS max_april,
+  MIN(may) AS min_may,
+  MAX(may) AS max_may,
+  MIN(june) AS min_june,
+  MAX(june) AS max_june,
+  MIN(july) AS min_july,
+  MAX(july) AS max_july,
+  MIN(august) AS min_august,
+  MAX(august) AS max_august,
+  MIN(september) AS min_september,
+  MAX(september) AS max_september,
+  MIN(october) AS min_october,
+  MAX(october) AS max_october,
+  MIN(november) AS min_november,  MAX(november) AS max_november,
+  MIN(december) AS min_december,
+  MAX(december) AS max_december,
+  MIN(annual_temp) AS min_annual_temp,
+  MAX(annual_temp) AS max_annual_temp
+  FROM
+  `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+  GROUP BY
+  variable;
+  ```
+
+
+
+
   
