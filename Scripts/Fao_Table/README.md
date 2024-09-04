@@ -100,6 +100,13 @@
     WHERE 
     unit = '100 g/ha';
     ```
+    -Simplificando nomes de longos
+    ```sql
+     UPDATE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    SET flag_description = 'missing'
+    WHERE flag_description = 'missing value data cannot exist, not applicable';
+    ```
+
     -Verificação de Valores Faltantes em Todas as Colunas
     ```sql
     SELECT
