@@ -16,6 +16,8 @@
     ```sql
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     DROP COLUMN domain_code;
+    ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    DROP COLUMN domain_code;
 
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     DROP COLUMN area_code;
