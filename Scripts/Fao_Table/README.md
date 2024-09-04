@@ -6,7 +6,7 @@
 
 - **Data Collection**  
   **Source:** FAO  
-  **Data:** Downloaded data on wheat, potato, and onion production in the Netherlands for all available periods from the following link: [FAO Data](https://www.fao.org/faostat/en/#data/QCL).
+  **Data:** Downloaded data on wheat production in the Netherlands for all available periods from the following link: [FAO Data](https://www.fao.org/faostat/en/#data/QCL).
 
 ### Data Processing
 
