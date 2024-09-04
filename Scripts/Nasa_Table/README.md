@@ -201,16 +201,38 @@ RENAME COLUMN Unit TO unit;
 - Verificação de Consistência das Unidades:
   ```sql
   SELECT
-      variable,
-      unit,
-      COUNT(*) AS count
+  variable,
+  MIN(january) AS min_january,
+  MAX(january) AS max_january,
+  MIN(february) AS min_february,
+  MAX(february) AS max_february,
+  MIN(march) AS min_march,
+  MAX(march) AS max_march,
+  MIN(april) AS min_april,
+  MAX(april) AS max_april,
+  MIN(may) AS min_may,
+  MAX(may) AS max_may,
+  MIN(june) AS min_june,
+  MAX(june) AS max_june,
+  MIN(july) AS min_july,
+  MAX(july) AS max_july,
+  MIN(august) AS min_august,
+  MAX(august) AS max_august,
+  MIN(september) AS min_september,
+  MAX(september) AS max_september,
+  MIN(october) AS min_october,
+  MAX(october) AS max_october,
+  MIN(november) AS min_november,
+  MAX(november) AS max_november,
+  MIN(december) AS min_december,
+  MAX(december) AS max_december,
+  MIN(annual_temp) AS min_annual_temp,
+  MAX(annual_temp) AS max_annual_temp
   FROM
-      my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
+  `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
   GROUP BY
-      variable,
-      unit
-  ORDER BY
-      variable;
+  variable;
+
   ```
 
 - Verificação de Linhas Duplicadas:
