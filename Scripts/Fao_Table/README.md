@@ -12,10 +12,8 @@
 
 - **Data Cleaning and Transformation using SQL and BigQuery**
 
-  - **Removal of Unnecessary Columns**
+  - **Removal of Unnecessary Columns**  
     ```sql
-    ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
-    DROP COLUMN domain_code;
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     DROP COLUMN domain_code;
 
@@ -38,7 +36,7 @@
     DROP COLUMN flag;
     ```
 
-  - **Standardization of Column Names to Lowercase**
+  - **Standardization of Column Names to Lowercase**  
     ```sql
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     RENAME COLUMN Domain TO domain;
@@ -62,7 +60,7 @@
     RENAME COLUMN Flag_Description TO flag_description;
     ```
 
-  - **Missing Values Check**
+  - **Missing Values Check**  
     ```sql
     SELECT
       COUNT(*) AS total_rows,
@@ -76,13 +74,15 @@
     FROM
       `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`;
     ```
-    -Conversão da coluna value de integer para float 64
+
+  - **Conversion of the `value` column from integer to float64**  
     ```sql
     ALTER TABLE 
     `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
-     ALTER COLUMN value SET DATA TYPE FLOAT64
-     ```
-    -Conversao dos valores de medida de 100 gramas por hectare(100g/ha)  para toneladas por hectare(ton/ha), limitando a duas casas apos a virgula.
+    ALTER COLUMN value SET DATA TYPE FLOAT64;
+    ```
+
+  - **Conversion of measurement units from 100 grams per hectare (100 g/ha) to tons per hectare (ton/ha), rounded to two decimal places**  
     ```sql
     UPDATE 
     `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
@@ -91,37 +91,40 @@
     WHERE 
     unit = '100 g/ha';
     ```
-    -Substitunido a unidade de 100g/ha para ton/ha na coluna unit
+
+  - **Replacing the unit of 100 g/ha with ton/ha in the `unit` column**  
     ```sql
     UPDATE 
-     `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     SET 
     unit = 'ton/ha'
     WHERE 
     unit = '100 g/ha';
     ```
-    -Simplificando nomes de longos
+
+  - **Simplifying long descriptions**  
     ```sql
-     UPDATE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    UPDATE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     SET flag_description = 'missing'
     WHERE flag_description = 'missing value data cannot exist, not applicable';
     ```
 
-    -Verificação de Valores Faltantes em Todas as Colunas
+  - **Missing Values Check in All Columns**  
     ```sql
     SELECT
-    COUNT(*) AS total_rows,
-    COUNTIF(domain IS NULL) AS domain_missing,
-    COUNTIF(element IS NULL) AS element_missing,
-    COUNTIF(item IS NULL) AS item_missing,
-    COUNTIF(year IS NULL) AS year_missing,
-    COUNTIF(unit IS NULL) AS unit_missing,
-    COUNTIF(value IS NULL) AS value_missing,
-    COUNTIF(flag_description IS NULL) AS flag_description_missing
+      COUNT(*) AS total_rows,
+      COUNTIF(domain IS NULL) AS domain_missing,
+      COUNTIF(element IS NULL) AS element_missing,
+      COUNTIF(item IS NULL) AS item_missing,
+      COUNTIF(year IS NULL) AS year_missing,
+      COUNTIF(unit IS NULL) AS unit_missing,
+      COUNTIF(value IS NULL) AS value_missing,
+      COUNTIF(flag_description IS NULL) AS flag_description_missing
     FROM
-    `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`;
-     ```
-   -Duplicate Data Handling
+      `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`;
+    ```
+
+  - **Duplicate Data Handling**  
     ```sql
     SELECT
       domain,
@@ -145,17 +148,29 @@
     HAVING
       COUNT(*) > 1;
     ```
--Verificação de Consistência de Valores
-```sql
-SELECT
-  element,
-  MIN(value) AS min_value,
-  MAX(value) AS max_value
-FROM
-  `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
-GROUP BY
-  element;
-```
-### Data Analyze
 
+  - **Consistency Check for Values**  
+    ```sql
+    SELECT
+      element,
+      MIN(value) AS min_value,
+      MAX(value) AS max_value
+    FROM
+      `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    GROUP BY
+      element;
+    ```
+
+### Data Analysis
+
+ - **Temporal analysis of the elements: Yield, production, and area harvested**  
+    ```sql
+    SELECT element, item, year, value 
+    FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    WHERE item = 'wheat'
+    ORDER BY year ASC;
+    ```
+
+
+---
 
