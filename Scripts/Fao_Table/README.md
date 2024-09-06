@@ -18,6 +18,9 @@
     DROP COLUMN domain_code;
 
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    DROP COLUMN item;
+
+    ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     DROP COLUMN area_code;
 
     ALTER TABLE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
@@ -165,9 +168,8 @@
 
  - **Temporal analysis of the elements: Yield, production, and area harvested (1961-2022)**  
     ```sql
-    SELECT element, item, year, value 
+    SELECT element, year, value 
     FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
-    WHERE item = 'wheat'
     ORDER BY year ASC;
     ```
 
