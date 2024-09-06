@@ -133,24 +133,18 @@ RENAME COLUMN Unit TO unit;
 
 - Criação da Coluna `variable`:
   - Mapeamento:
-    - `ts` = Earth Skin Temperature
-    - `qv2m` = Specific Humidity
-    - `rh2m` = Relative Humidity
-    - `gwettop` = Surface Soil Wetness
+    - `ts` = Earth Skin Temperature  
     - `prectotcorr_sum` = Precipitation Corrected Sum
   ```sql
   UPDATE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   SET
       variable = CASE
-          WHEN parameter = 'ts' THEN 'Earth Skin Temperature'
-          WHEN parameter = 'qv2m' THEN 'Specific Humidity'
-          WHEN parameter = 'rh2m' THEN 'Relative Humidity'
-          WHEN parameter = 'gwettop' THEN 'Surface Soil Wetness'
+          WHEN parameter = 'ts' THEN 'Earth Skin Temperature'         
           WHEN parameter = 'prectotcorr_sum' THEN 'Precipitation Corrected Sum'
           ELSE 'Unknown'
       END
   WHERE
-      parameter IN ('ts', 'qv2m', 'rh2m', 'gwettop', 'prectotcorr_sum') OR TRUE;
+      parameter IN ('ts', 'prectotcorr_sum') OR TRUE;
   ```
 
 - Criação da Coluna `unit`:
@@ -164,9 +158,6 @@ RENAME COLUMN Unit TO unit;
   UPDATE my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table
   SET unit = CASE
       WHEN variable = 'Earth Skin Temperature' THEN '(C)'
-      WHEN variable = 'Specific Humidity' THEN 'at 2 Meters (g/kg)'
-      WHEN variable = 'Relative Humidity' THEN 'at 2 Meters (%)'
-      WHEN variable = 'Surface Soil Wetness' THEN '(1)'
       WHEN variable = 'Precipitation Corrected Sum' THEN '(mm)'
       ELSE 'Unknown'
   END
