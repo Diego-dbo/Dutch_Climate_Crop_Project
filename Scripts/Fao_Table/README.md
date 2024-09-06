@@ -166,12 +166,39 @@
 
 ### Data Analysis
 
- - **Temporal analysis of the elements: Yield, production, and area harvested (1961-2022)**  
-    ```sql
+   - **Temporal analysis of the elements: Yield, production, and area harvested (1961-2022)**  
+     ```sql
     SELECT element, year, value 
     FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     ORDER BY year ASC;
     ```
+   - **Year Comparison of Wheat Yield, Production, and Harvested Area with Percentage Change from First to Last Year**
+   ```sql
+    WITH data_comparison AS (
+    SELECT 
+    element,
+    year,
+    value,
+    FIRST_VALUE(value) OVER (PARTITION BY element ORDER BY year ASC) AS first_year_value,
+    LAST_VALUE(value) OVER (PARTITION BY element ORDER BY year ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last_year_value
+    FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+  
+      )
+
+    SELECT 
+    element,
+    MIN(year) AS first_year,
+    MAX(year) AS last_year,
+    first_year_value,
+    last_year_value,
+    (last_year_value - first_year_value) AS difference,
+    ((last_year_value - first_year_value) / first_year_value) * 100 AS percentage_change
+    FROM data_comparison
+    GROUP BY element, first_year_value, last_year_value
+    ORDER BY element;
+    ```
+    
+
 
 
 ---
