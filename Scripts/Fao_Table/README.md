@@ -196,8 +196,40 @@
     FROM data_comparison
     GROUP BY element, first_year_value, last_year_value
     ORDER BY element;
-    ```
-    
+  ```
+- **Correlation Analysis between Wheat Yield, Area Harvested, and Production (1961-2022)**
+  ```sql
+  WITH data AS (
+  SELECT 
+    year,
+    MAX(CASE WHEN element = 'yield' THEN value END) AS yield_value,
+    MAX(CASE WHEN element = 'area harvested' THEN value END) AS area_harvested_value,
+    MAX(CASE WHEN element = 'production' THEN value END) AS production_value
+  FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+  GROUP BY year
+  )
+
+  SELECT 
+  'Yield vs Area Harvested' AS correlation_between,
+  CORR(yield_value, area_harvested_value) AS correlation_value
+  FROM data
+
+  UNION ALL
+
+  SELECT 
+  'Yield vs Production' AS correlation_between,
+  CORR(yield_value, production_value) AS correlation_value
+  FROM data
+
+  UNION ALL
+
+  SELECT 
+  'Production vs Area Harvested' AS correlation_between,
+  CORR(production_value, area_harvested_value) AS correlation_value
+  FROM data;
+  ```
+  
+
 
 
 
