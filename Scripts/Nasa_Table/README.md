@@ -307,6 +307,16 @@ RENAME COLUMN Unit TO unit;
   variable;
   ```
 ### Data Analyze
+- **Precipitation and surface temperature changed over the years(1984-2022)**
+  ```sql
+  SELECT 
+  year, 
+  variable, 
+  AVG(annual_temp) AS avg_annual_value
+  FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
+  WHERE variable IN ('Earth Skin Temperature', 'Precipitation Corrected Sum')
+  GROUP BY year, variable
+  ORDER BY year ASC, variable;
 
 
 
