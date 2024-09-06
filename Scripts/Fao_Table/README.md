@@ -228,7 +228,46 @@
   CORR(production_value, area_harvested_value) AS correlation_value
   FROM data;
   ```
+  - **Top 3 Increases and Decreases in Yield, Production, and Area Harvested (Yearly Comparison)**
+    ```sql
+    WITH changes AS (
+    SELECT 
+    year,
+    element,
+    value,
+    LAG(value) OVER (PARTITION BY element ORDER BY year) AS previous_year_value,
+    ((value - LAG(value) OVER (PARTITION BY element ORDER BY year)) / LAG(value) OVER (PARTITION BY element ORDER BY year)) * 100 AS percent_change
+    FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    WHERE element IN ('production', 'yield', 'area harvested')
+    )
+
+    , ranked_changes AS (
+    SELECT 
+    element,
+    year,
+    value,
+    percent_change,
+    ROW_NUMBER() OVER (PARTITION BY element ORDER BY percent_change DESC) AS rank_increase,
+    ROW_NUMBER() OVER (PARTITION BY element ORDER BY percent_change ASC) AS rank_decrease
+    FROM changes
+    WHERE percent_change IS NOT NULL
+    )
+
+    -- Select top 3 increases and top 3 decreases for each element
+    SELECT 
+    element,
   
+    -- Top 3 Increases
+    MAX(CASE WHEN rank_increase = 1 THEN year END) AS year_top_increase_1,
+    MAX(CASE WHEN rank_increase = 1 THEN value END) AS value_top_increase_1,
+    MAX(CASE WHEN rank_increase = 1 THEN percent_change END) AS percent_change_top_increase_1,
+  
+    MAX(CASE WHEN rank_increase = 2 THEN year END) AS year_top_increase_2,
+    MAX(CASE WHEN rank_increase = 2 THEN value END) AS value_top_increase_2,
+    MAX(CASE WHEN rank_increase = 2 THEN percent_change END) AS percent_change_top_increase_2,
+
+    MAX(CASE WHEN rank_increase = 3 THEN year END) AS year_top_increase_3,
+ ```
 
 
 
