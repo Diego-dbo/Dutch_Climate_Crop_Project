@@ -134,14 +134,13 @@ Data: I downloaded the meteorological data through the link [NASA Power Data Acc
 ## Data Analysis
 - **Precipitation and Surface Temperature Changes Over the Years (1984-2022)**:
   ```sql
-  SELECT 
-  year, 
-  variable, 
-  AVG(annual_temp) AS avg_annual_value
+  SELECT
+    year,
+    variable,
+    AVG(annual_temp) AS avg_annual_temp
   FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
-  WHERE variable IN ('Earth Skin Temperature', 'Precipitation Corrected Sum')
   GROUP BY year, variable
-  ORDER BY year ASC, variable;
+  ORDER BY year, variable;
   ```
 
 - **Monthly Average Analysis of Earth Skin Temperature and Precipitation (1984-2022)**:
