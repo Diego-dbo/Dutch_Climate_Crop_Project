@@ -218,12 +218,10 @@ JOIN fao_data f
 ON n.year = f.year
 ORDER BY n.year;
 ```
-
-
-
-
- 
-
----
-
-
+- **Annual Correlation Between Wheat Yield and Climatic Variables: Temperature and Precipitation.**
+  ```sql
+  SELECT 
+    CORR(avg_temperature, wheat_yield) AS temperature_yield_correlation,
+    CORR(avg_precipitation, wheat_yield) AS precipitation_yield_correlation
+  FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.5_fao_nasa_table`;
+  
