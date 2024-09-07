@@ -152,16 +152,17 @@ Data: I downloaded the meteorological data through the link [NASA Power Data Acc
 - **Detecting Outliers in temperature and precipitation using Z-score**
 ```sql
 WITH stats AS (
-    -- Calculates the mean and standard deviation of annual_temp for each variable
+    -- Calculates the mean and standard deviation of annual_temp for each year and variable
     SELECT
+        year,
         variable,
         AVG(annual_temp) AS mean_annual_temp,
         STDDEV(annual_temp) AS stddev_annual_temp
     FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
-    GROUP BY variable
+    GROUP BY year, variable
 ),
 annual_temps_with_zscore AS (
-    -- Joins the statistics with the original data and calculates the Z-score
+    -- Joins the statistics with the original data and calculates the Z-score for each year and variable
     SELECT
         nt.year,
         nt.variable,
@@ -171,7 +172,7 @@ annual_temps_with_zscore AS (
         (nt.annual_temp - s.mean_annual_temp) / s.stddev_annual_temp AS zscore
     FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table` nt
     JOIN stats s
-    ON nt.variable = s.variable
+    ON nt.year = s.year AND nt.variable = s.variable
 )
 SELECT
     year,
@@ -181,6 +182,7 @@ SELECT
 FROM annual_temps_with_zscore
 WHERE ABS(zscore) > 3 -- Defines as an outlier any value whose absolute Z-score is greater than 3
 ORDER BY year, variable;
+
 ```
 
 
