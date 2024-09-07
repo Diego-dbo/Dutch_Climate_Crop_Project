@@ -149,10 +149,7 @@ Data: I downloaded the meteorological data through the link [NASA Power Data Acc
   SELECT variable, 'January' AS month, AVG(january) AS avg_value
   FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.nasa_table`
   GROUP BY variable
-  UNION ALL
-  SELECT variable, 'February' AS month, AVG(february) AS avg_value
-  -- Same for all other months
-  ```
+ 
 
 ---
 
