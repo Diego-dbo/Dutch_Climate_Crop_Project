@@ -94,7 +94,6 @@
     WHERE 
     unit = '100 g/ha';
     ```
-
   - **Replacing the unit of 100 g/ha with ton/ha in the `unit` column**  
     ```sql
     UPDATE 
@@ -104,14 +103,12 @@
     WHERE 
     unit = '100 g/ha';
     ```
-
   - **Simplifying long descriptions**  
     ```sql
     UPDATE `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     SET flag_description = 'missing'
     WHERE flag_description = 'missing value data cannot exist, not applicable';
     ```
-
   - **Missing Values Check in All Columns**  
     ```sql
     SELECT
@@ -126,7 +123,6 @@
     FROM
       `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`;
     ```
-
   - **Duplicate Data Handling**  
     ```sql
     SELECT
@@ -151,7 +147,6 @@
     HAVING
       COUNT(*) > 1;
     ```
-
   - **Consistency Check for Values**  
     ```sql
     SELECT
@@ -167,7 +162,7 @@
 ### Data Analysis
 
    - **Temporal analysis of the elements: Yield, production, and area harvested (1961-2022)**  
-     ```sql
+   ```sql
     SELECT element, year, value 
     FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
     ORDER BY year ASC;
