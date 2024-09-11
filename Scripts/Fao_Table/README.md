@@ -262,10 +262,46 @@
     MAX(CASE WHEN rank_increase = 2 THEN percent_change END) AS percent_change_top_increase_2,
 
     MAX(CASE WHEN rank_increase = 3 THEN year END) AS year_top_increase_3,
- ```
+ 
+ - **Integrated Analysis of Wheat Yield and Climate Variables (1984-2022)**
+   - **A new integrated table was created using an INNER JOIN between the FAO table (filtered to include only the yield element) and a NASA sub-table that already contained annual averages for temperature and precipitation. This allows for more streamlined queries and analysis, focusing on the relationship between wheat yield and key climate variables (temperature and precipitation) from 1984 to 2022.**
 
-
-
-
+```sql
+WITH nasa_data AS (
+    -- Filtra os dados da tabela NASA para obter as médias anuais de temperatura e precipitação entre 1984 e 2022
+    SELECT
+        year,
+        MAX(CASE WHEN variable = 'Earth Skin Temperature' THEN avg_annual_value END) AS avg_temperature,
+        MAX(CASE WHEN variable = 'Precipitation Corrected Sum' THEN avg_annual_value END) AS avg_precipitation
+    FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.4_precip_temp_nasa_1984_2022`
+    WHERE year BETWEEN 1984 AND 2022
+    GROUP BY year
+),
+fao_data AS (
+    -- Filtra os dados da tabela FAO para obter os rendimentos de trigo (yield) entre 1984 e 2022
+    SELECT
+        year,
+        value AS wheat_yield
+    FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.fao_table`
+    WHERE element = 'yield'
+    AND year BETWEEN 1984 AND 2022
+)
+-- Junta os dados meteorológicos com os dados de rendimento de trigo usando o campo 'year'
+SELECT
+    n.year,
+    n.avg_temperature,
+    n.avg_precipitation,
+    f.wheat_yield
+FROM nasa_data n
+JOIN fao_data f
+ON n.year = f.year
+ORDER BY n.year;
+```
+- **Annual Correlation Between Wheat Yield and Climatic Variables: Temperature and Precipitation.**
+  ```sql
+  SELECT 
+    CORR(avg_temperature, wheat_yield) AS temperature_yield_correlation,
+    CORR(avg_precipitation, wheat_yield) AS precipitation_yield_correlation
+  FROM `my-portifolio-434417.Netherlands_Agricultural_and_Meteorological_Data.5_fao_nasa_table`;
 ---
 
